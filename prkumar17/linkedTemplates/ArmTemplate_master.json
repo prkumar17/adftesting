@@ -1,0 +1,141 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "prkumar17"
+		},
+		"SqlServer1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'SqlServer1'",
+			"defaultValue": "Integrated Security=False;Data Source=@{linkedService().servername};Initial Catalog=@{linkedService().dnname};User ID=@{linkedService().username};Password=@{linkedService().password}"
+		},
+		"SqlServerForDBUsingParameter_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'SqlServerForDBUsingParameter'",
+			"defaultValue": "Integrated Security=False;Data Source=@{linkedService().serverName};Initial Catalog=@{linkedService().DBName};User ID=@{linkedService().userName};Password=@{linkedService().Password}"
+		},
+		"linkedService1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'linkedService1'"
+		},
+		"loggingLinkedservice_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'loggingLinkedservice'"
+		},
+		"prashantstoragenew123_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'prashantstoragenew123'"
+		},
+		"TriggerToParametize_properties_pipeline2_parameters_dbname1": {
+			"type": "string",
+			"defaultValue": "a"
+		},
+		"TriggerToParametize_properties_pipeline2_parameters_servername1": {
+			"type": "string",
+			"defaultValue": "a"
+		},
+		"TriggerToParametize_properties_pipeline2_parameters_SourceTableName": {
+			"type": "string",
+			"defaultValue": "a"
+		},
+		"TriggerToParametize_properties_pipeline2_parameters_password": {
+			"type": "string",
+			"defaultValue": "a"
+		},
+		"TriggerToParametize_properties_pipeline2_parameters_username": {
+			"type": "string",
+			"defaultValue": "a"
+		},
+		"TriggerToParametize_properties_pipeline2_parameters_DestinationTableName": {
+			"type": "string",
+			"defaultValue": "a"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "prkumar17_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"SqlServer1_connectionString": {
+						"value": "[parameters('SqlServer1_connectionString')]"
+					},
+					"SqlServerForDBUsingParameter_connectionString": {
+						"value": "[parameters('SqlServerForDBUsingParameter_connectionString')]"
+					},
+					"linkedService1_connectionString": {
+						"value": "[parameters('linkedService1_connectionString')]"
+					},
+					"loggingLinkedservice_connectionString": {
+						"value": "[parameters('loggingLinkedservice_connectionString')]"
+					},
+					"prashantstoragenew123_connectionString": {
+						"value": "[parameters('prashantstoragenew123_connectionString')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "prkumar17_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"TriggerToParametize_properties_pipeline2_parameters_dbname1": {
+						"value": "[parameters('TriggerToParametize_properties_pipeline2_parameters_dbname1')]"
+					},
+					"TriggerToParametize_properties_pipeline2_parameters_servername1": {
+						"value": "[parameters('TriggerToParametize_properties_pipeline2_parameters_servername1')]"
+					},
+					"TriggerToParametize_properties_pipeline2_parameters_SourceTableName": {
+						"value": "[parameters('TriggerToParametize_properties_pipeline2_parameters_SourceTableName')]"
+					},
+					"TriggerToParametize_properties_pipeline2_parameters_password": {
+						"value": "[parameters('TriggerToParametize_properties_pipeline2_parameters_password')]"
+					},
+					"TriggerToParametize_properties_pipeline2_parameters_username": {
+						"value": "[parameters('TriggerToParametize_properties_pipeline2_parameters_username')]"
+					},
+					"TriggerToParametize_properties_pipeline2_parameters_DestinationTableName": {
+						"value": "[parameters('TriggerToParametize_properties_pipeline2_parameters_DestinationTableName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'prkumar17_ArmTemplate_0')]"
+			]
+		}
+	]
+}

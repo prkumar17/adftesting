@@ -1,0 +1,48 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "prkumar17"
+		},
+		"SqlServer1_connectionString": {
+			"value": "Integrated Security=False;Data Source=@{linkedService().servername};Initial Catalog=@{linkedService().dnname};User ID=@{linkedService().username};Password=@{linkedService().password}"
+		},
+		"SqlServerForDBUsingParameter_connectionString": {
+			"value": "Integrated Security=False;Data Source=@{linkedService().serverName};Initial Catalog=@{linkedService().DBName};User ID=@{linkedService().userName};Password=@{linkedService().Password}"
+		},
+		"linkedService1_connectionString": {
+			"value": ""
+		},
+		"loggingLinkedservice_connectionString": {
+			"value": ""
+		},
+		"prashantstoragenew123_connectionString": {
+			"value": ""
+		},
+		"TriggerToParametize_properties_pipeline2_parameters_dbname1": {
+			"value": "a"
+		},
+		"TriggerToParametize_properties_pipeline2_parameters_servername1": {
+			"value": "a"
+		},
+		"TriggerToParametize_properties_pipeline2_parameters_SourceTableName": {
+			"value": "a"
+		},
+		"TriggerToParametize_properties_pipeline2_parameters_password": {
+			"value": "a"
+		},
+		"TriggerToParametize_properties_pipeline2_parameters_username": {
+			"value": "a"
+		},
+		"TriggerToParametize_properties_pipeline2_parameters_DestinationTableName": {
+			"value": "a"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
