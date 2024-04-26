@@ -1,0 +1,32 @@
+{
+	"name": "TriggerToParametize",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "pipeline2",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"dbname1": "a",
+					"servername1": "a",
+					"SourceTableName": "a",
+					"password": "a",
+					"username": "a",
+					"DestinationTableName": "a"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Minute",
+				"interval": 15,
+				"startTime": "2024-04-18T07:12:00",
+				"timeZone": "India Standard Time"
+			}
+		}
+	}
+}

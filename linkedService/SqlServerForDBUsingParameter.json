@@ -1,0 +1,25 @@
+{
+	"name": "SqlServerForDBUsingParameter",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"parameters": {
+			"serverName": {
+				"type": "string"
+			},
+			"DBName": {
+				"type": "string"
+			},
+			"userName": {
+				"type": "string"
+			},
+			"Password": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "Integrated Security=False;Data Source=@{linkedService().serverName};Initial Catalog=@{linkedService().DBName};User ID=@{linkedService().userName};Password=@{linkedService().Password}"
+		}
+	}
+}

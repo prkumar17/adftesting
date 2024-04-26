@@ -1,0 +1,120 @@
+{
+	"name": "pipeline2",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data using parameter",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SqlServerparameterDataset",
+						"type": "DatasetReference",
+						"parameters": {
+							"dbname": {
+								"value": "@pipeline().parameters.dbname1",
+								"type": "Expression"
+							},
+							"servername": {
+								"value": "@pipeline().parameters.servername1",
+								"type": "Expression"
+							},
+							"password": {
+								"value": "@pipeline().parameters.password",
+								"type": "Expression"
+							},
+							"username": {
+								"value": "@pipeline().parameters.username",
+								"type": "Expression"
+							},
+							"tableName": {
+								"value": "@pipeline().parameters.SourceTableName",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SqlServerparameterDataset",
+						"type": "DatasetReference",
+						"parameters": {
+							"dbname": {
+								"value": "@pipeline().parameters.dbname1",
+								"type": "Expression"
+							},
+							"servername": {
+								"value": "@pipeline().parameters.servername1",
+								"type": "Expression"
+							},
+							"password": {
+								"value": "@pipeline().parameters.password",
+								"type": "Expression"
+							},
+							"username": {
+								"value": "@pipeline().parameters.username",
+								"type": "Expression"
+							},
+							"tableName": {
+								"value": "@pipeline().parameters.DestinationTableName",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"dbname1": {
+				"type": "string"
+			},
+			"servername1": {
+				"type": "string"
+			},
+			"SourceTableName": {
+				"type": "string"
+			},
+			"password": {
+				"type": "string"
+			},
+			"username": {
+				"type": "string"
+			},
+			"DestinationTableName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2024-04-18T07:13:44Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
