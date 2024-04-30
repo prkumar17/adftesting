@@ -1,0 +1,101 @@
+{
+	"name": "dataflow3",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "datasetwithID",
+						"type": "DatasetReference"
+					},
+					"name": "employeewithoutID"
+				},
+				{
+					"dataset": {
+						"referenceName": "employeewithoutid",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [],
+			"transformations": [
+				{
+					"name": "toaddnewcol"
+				},
+				{
+					"name": "aggregate1"
+				},
+				{
+					"name": "join1"
+				},
+				{
+					"name": "surrogateKey1"
+				},
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "select1"
+				},
+				{
+					"name": "union2"
+				},
+				{
+					"name": "select2"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          id as string,",
+				"          name as string,",
+				"          age as string,",
+				"          gender as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> employeewithoutID",
+				"source(output(",
+				"          name as string,",
+				"          age as string,",
+				"          gender as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source1",
+				"employeewithoutID derive(country = 'India') ~> toaddnewcol",
+				"toaddnewcol aggregate(groupBy(country),",
+				"     maxID = max(id)) ~> aggregate1",
+				"aggregate1, source1 join(1==1,",
+				"     joinType:'cross',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join1",
+				"join1 keyGenerate(output(id as long),",
+				"     startAt: 1L,",
+				"     stepValue: 1L) ~> surrogateKey1",
+				"surrogateKey1 derive(new_id = toString(toInteger(maxID) + toInteger(id))) ~> derivedColumn1",
+				"derivedColumn1 select(mapColumn(",
+				"          country,",
+				"          name,",
+				"          age,",
+				"          gender,",
+				"          id = new_id",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"employeewithoutID, select2 union(byName: true)~> union2",
+				"select1 select(mapColumn(",
+				"          id,",
+				"          country,",
+				"          name,",
+				"          age,",
+				"          gender",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select2"
+			]
+		}
+	}
+}
