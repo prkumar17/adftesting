@@ -65,7 +65,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "salesoutputfilesDataset",
+						"referenceName": "outputfilesbasedonlast",
 						"type": "DatasetReference"
 					}
 				]
