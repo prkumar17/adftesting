@@ -40,10 +40,7 @@
 					"name": "select1"
 				},
 				{
-					"name": "union2"
-				},
-				{
-					"name": "select2"
+					"name": "union1"
 				}
 			],
 			"scriptLines": [
@@ -85,16 +82,7 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1",
-				"employeewithoutID, select2 union(byName: true)~> union2",
-				"select1 select(mapColumn(",
-				"          id,",
-				"          country,",
-				"          name,",
-				"          age,",
-				"          gender",
-				"     ),",
-				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> select2"
+				"employeewithoutID, select1 union(byName: true)~> union1"
 			]
 		}
 	}
