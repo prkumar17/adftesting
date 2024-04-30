@@ -19,7 +19,15 @@
 					"name": "source1"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "finaloutput",
+						"type": "DatasetReference"
+					},
+					"name": "finaldata"
+				}
+			],
 			"transformations": [
 				{
 					"name": "toaddnewcol"
@@ -82,7 +90,11 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1",
-				"employeewithoutID, select1 union(byName: true)~> union1"
+				"employeewithoutID, select1 union(byName: true)~> union1",
+				"union1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> finaldata"
 			]
 		}
 	}
