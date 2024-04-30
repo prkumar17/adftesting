@@ -12,7 +12,15 @@
 					"name": "inputsource"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText2",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
 			"transformations": [
 				{
 					"name": "window1"
@@ -27,7 +35,11 @@
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> inputsource",
 				"inputsource window(asc(marks, true),",
-				"     RunningTotal = sum(toInteger(marks))) ~> window1"
+				"     RunningTotal = sum(toInteger(marks))) ~> window1",
+				"window1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
 		}
 	}
