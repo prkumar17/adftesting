@@ -1,0 +1,34 @@
+{
+	"name": "runningtotalbyWindowtransformation",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "inputdata",
+						"type": "DatasetReference"
+					},
+					"name": "inputsource"
+				}
+			],
+			"sinks": [],
+			"transformations": [
+				{
+					"name": "window1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          year as string,",
+				"          marks as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> inputsource",
+				"inputsource window(asc(marks, true),",
+				"     RunningTotal = sum(toInteger(marks))) ~> window1"
+			]
+		}
+	}
+}
